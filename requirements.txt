@@ -1,0 +1,29 @@
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# Veritabanı
+sqlalchemy==2.0.36
+aiosqlite==0.20.0
+alembic==1.13.3
+
+# Config & Validation
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# HTTP & Scraping
+httpx==0.27.2
+beautifulsoup4==4.12.3
+lxml==5.3.0
+
+# Dosya sistemi (async)
+aiofiles==24.1.0
+
+# AI
+openai==1.51.2
+
+# Zamanlanmış görevler
+apscheduler==3.10.4
+
+# Güvenlik
+python-dotenv==1.0.1
