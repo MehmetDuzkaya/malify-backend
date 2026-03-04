@@ -1,43 +1,52 @@
-from pydantic_settings import BaseSettings
+"""
+app/core/config.py
+──────────────────
+Pydantic-Settings ile .env dosyasını okur.
+Tüm uygulama ayarları tek bir yerden yönetilir.
+"""
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
-from pathlib import Path
 
 
 class Settings(BaseSettings):
-    # App
-    APP_NAME: str = "Malify Backend"
-    APP_VERSION: str = "0.1.0"
-    DEBUG: bool = False
-    ENVIRONMENT: str = "development"
+    # ── Uygulama ─────────────────────────────────────────────
+    app_name: str = "Malify Backend"
+    app_version: str = "0.1.0"
+    debug: bool = False
 
-    # API
-    API_V1_PREFIX: str = "/api/v1"
+    # ── Sunucu ───────────────────────────────────────────────
+    host: str = "0.0.0.0"
+    port: int = 8000
 
-    # Database
-    DATABASE_URL: str = "sqlite:///./malify.db"
+    # ── Veritabanı ───────────────────────────────────────────
+    # aiosqlite: SQLite'ın async (non-blocking) sürücüsü
+    database_url: str = "sqlite+aiosqlite:///./malify.db"
 
-    # Storage
-    DATA_DIR: Path = Path("data/gazettes")
+    # ── PDF Depolama ─────────────────────────────────────────
+    # İndirilen PDF'lerin kaydedileceği klasör (proje kökünden göreli)
+    pdf_storage_dir: str = "storage/pdfs"
 
-    # AI
-    OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o-mini"
+    # ── OpenAI ───────────────────────────────────────────────
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4o-mini"
 
-    # Scraping
-    SCRAPE_BASE_URL: str = "https://www.resmigazete.gov.tr"
-    SCRAPE_DELAY_SECONDS: float = 1.5
+    # ── Resmî Gazete ─────────────────────────────────────────
+    gazette_base_url: str = "https://www.resmigazete.gov.tr"
 
-    # CORS
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]
+    # ── Zamanlama ────────────────────────────────────────────
+    gazette_scrape_hour: int = 10
+    gazette_scrape_minute: int = 0
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    # .env dosyasını otomatik yükle; büyük/küçük harf duyarsız
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
 
-@lru_cache()
+@lru_cache  # Aynı nesneyi tekrar tekrar oluşturmamak için önbellek
 def get_settings() -> Settings:
+    """
+    Uygulama boyunca tek bir Settings örneği döner.
+    FastAPI Dependency Injection ile kullanım:
+        def my_route(settings: Settings = Depends(get_settings)):
+    """
     return Settings()
-
-
-settings = get_settings()

@@ -1,29 +1,31 @@
-# Web framework
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  MALIFY BACKEND — Bağımlılıklar
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Veritabanı
-sqlalchemy==2.0.36
-aiosqlite==0.20.0
-alembic==1.13.3
+# ── Web Framework ────────────────────────────────────────────
+fastapi==0.115.6           # Ana web framework
+uvicorn[standard]==0.32.1  # ASGI sunucusu (prod: gunicorn ile birlikte)
 
-# Config & Validation
-pydantic==2.9.2
-pydantic-settings==2.5.2
+# ── Veritabanı ───────────────────────────────────────────────
+sqlalchemy==2.0.36         # ORM — async desteği için 2.x gerekli
+aiosqlite==0.20.0          # SQLite için async sürücü
+greenlet==3.2.5            # SQLAlchemy async için gerekli (macOS)
+alembic==1.14.0            # Veritabanı migrasyon yöneticisi
 
-# HTTP & Scraping
-httpx==0.27.2
-beautifulsoup4==4.12.3
-lxml==5.3.0
+# ── Veri Doğrulama & Ayarlar ─────────────────────────────────
+pydantic==2.10.3           # Şema validasyon (FastAPI bunu kullanır)
+pydantic-settings==2.6.1   # .env dosyasından ayar okuma
 
-# Dosya sistemi (async)
-aiofiles==24.1.0
+# ── HTTP İstekleri & PDF İşleme ──────────────────────────────
+httpx==0.28.1              # Async HTTP client (PDF indirme)
+PyMuPDF==1.25.1            # PDF metin çıkarma (fitz modülü)
 
-# AI
-openai==1.51.2
+# ── Zamanlama (Cron Jobs) ─────────────────────────────────────
+apscheduler==3.10.4        # Günlük otomatik çekme için scheduler
 
-# Zamanlanmış görevler
-apscheduler==3.10.4
+# ── AI ────────────────────────────────────────────────────────
+openai==1.61.0             # OpenAI API (async destekli)
 
-# Güvenlik
-python-dotenv==1.0.1
+# ── Yardımcı ─────────────────────────────────────────────────
+python-dotenv==1.0.1       # .env yükleme
+python-multipart==0.0.20   # Form/file upload desteği

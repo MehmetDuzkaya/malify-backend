@@ -1,51 +1,45 @@
-# Python
+# ── Python ───────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pyc
 .Python
+*.egg-info/
+dist/
+build/
+*.egg
 
-# Virtual environment
+# ── Sanal Ortam ───────────────────────────────────────────────
 venv/
 .venv/
 env/
-ENV/
+.env/
 
-# Environment variables
+# ── Ortam Değişkenleri (GİZLİ) ───────────────────────────────
 .env
 *.env
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Veritabanı
+# ── Veritabanı ───────────────────────────────────────────────
 *.db
 *.sqlite
 *.sqlite3
 
-# Logs
+# ── PDF Depolama ─────────────────────────────────────────────
+storage/pdfs/
+
+# ── IDE ──────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+
+# ── macOS ────────────────────────────────────────────────────
+.DS_Store
+
+# ── Log Dosyaları ─────────────────────────────────────────────
 *.log
 logs/
 
-# Build / dist
-dist/
-build/
-*.egg-info/
-
-# Test coverage
+# ── Test ─────────────────────────────────────────────────────
+.pytest_cache/
 .coverage
 htmlcov/
-.pytest_cache/
-
-# mypy
-.mypy_cache/
-
-# Scraping verisi (büyük dosyalar)
-data/gazettes/
-
-# macOS
-.DS_Store

@@ -1,8 +1,14 @@
+"""
+app/api/v1/router.py
+─────────────────────
+v1 API'sindeki tüm route'ları tek bir router'a toplar.
+Yeni bir endpoint grubu eklendiğinde sadece buraya eklenir.
+"""
+
 from fastapi import APIRouter
-from app.api.v1.routes import gazette, analysis, health
+from app.api.v1.routes import gazette
 
-router = APIRouter()
+api_router = APIRouter(prefix="/api/v1")
 
-router.include_router(health.router, prefix="/health", tags=["Health"])
-router.include_router(gazette.router, prefix="/gazettes", tags=["Gazettes"])
-router.include_router(analysis.router, prefix="/analysis", tags=["Analysis"])
+# Gazette route'larını ekle
+api_router.include_router(gazette.router)
